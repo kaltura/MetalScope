@@ -75,7 +75,12 @@ public final class MonoSphericalVideoScene: MonoSphericalMediaScene, VideoScene 
 
     public init(renderer: PlayerRenderer) {
         self.renderer = renderer
-        commandQueue = renderer.device.makeCommandQueue()
+        
+        guard let commandQueue = renderer.device.makeCommandQueue() else {
+            fatalError("Must have a command queue")
+        }
+        self.commandQueue = commandQueue
+        
         super.init()
         renderLoop.resume()
     }
@@ -115,7 +120,9 @@ public final class MonoSphericalVideoScene: MonoSphericalMediaScene, VideoScene 
         }
 
         do {
-            let commandBuffer = (commandQueue ?? self.commandQueue).makeCommandBuffer()
+            guard let commandBuffer = (commandQueue ?? self.commandQueue).makeCommandBuffer() else {
+                fatalError("Can't render without a command buffer")
+            }
             try renderer.render(atHostTime: time, to: texture, commandBuffer: commandBuffer)
             commandBuffer.commit()
         } catch let error as CVError {
@@ -163,7 +170,10 @@ public final class StereoSphericalVideoScene: StereoSphericalMediaScene, VideoSc
 
     public init(renderer: PlayerRenderer) {
         self.renderer = renderer
-        commandQueue = renderer.device.makeCommandQueue()
+        guard let commandQueue = renderer.device.makeCommandQueue() else {
+            fatalError("Can't create a scene without a command queue")
+        }
+        self.commandQueue = commandQueue
         super.init()
         renderLoop.resume()
     }
@@ -206,14 +216,16 @@ public final class StereoSphericalVideoScene: StereoSphericalMediaScene, VideoSc
             return
         }
 
-        let commandBuffer = (commandQueue ?? self.commandQueue).makeCommandBuffer()
+        guard let commandBuffer = (commandQueue ?? self.commandQueue).makeCommandBuffer() else {
+            fatalError("Can't render without a command buffer")
+        }
 
         do {
             try renderer.render(atHostTime: time, to: playerTexture, commandBuffer: commandBuffer)
 
             func copyPlayerTexture(region: MTLRegion, to sphereTexture: MTLTexture) {
                 let blitCommandEncoder = commandBuffer.makeBlitCommandEncoder()
-                blitCommandEncoder.copy(
+                blitCommandEncoder?.copy(
                     from: playerTexture,
                     sourceSlice: 0,
                     sourceLevel: 0,
@@ -224,7 +236,7 @@ public final class StereoSphericalVideoScene: StereoSphericalMediaScene, VideoSc
                     destinationLevel: 0,
                     destinationOrigin: MTLOrigin(x: 0, y: 0, z: 0)
                 )
-                blitCommandEncoder.endEncoding()
+                blitCommandEncoder?.endEncoding()
             }
 
             let halfHeight = playerTexture.height / 2

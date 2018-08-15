@@ -144,7 +144,9 @@ public final class StereoView: UIView, SceneLoadable {
             height: Int(textureSize.height),
             mipmapped: true
         )
-        let texture = device.makeTexture(descriptor: textureDescriptor)
+        guard let texture = device.makeTexture(descriptor: textureDescriptor) else {
+            fatalError("Can't continue without a view")
+        }
 
         self.init(stereoTexture: texture)
 

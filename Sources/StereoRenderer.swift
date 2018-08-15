@@ -50,10 +50,14 @@ internal final class StereoRenderer {
             mipmapped: true
         )
         eyeTextureDescriptor.usage = .renderTarget
-
+        
+        guard let leftTexture = device.makeTexture(descriptor: eyeTextureDescriptor), let rightTexture = device.makeTexture(descriptor: eyeTextureDescriptor) else {
+            fatalError("Left and Right Textures are needed.")
+        }
+        
         eyeRenderingConfigurations = [
-            .left: EyeRenderingConfiguration(texture: device.makeTexture(descriptor: eyeTextureDescriptor)),
-            .right: EyeRenderingConfiguration(texture: device.makeTexture(descriptor: eyeTextureDescriptor))
+            .left: EyeRenderingConfiguration(texture: leftTexture),
+            .right: EyeRenderingConfiguration(texture: rightTexture)
         ]
     }
 
@@ -75,7 +79,9 @@ internal final class StereoRenderer {
         for (eye, configuration) in eyeRenderingConfigurations {
             semaphore.wait()
 
-            let commandBuffer = commandQueue.makeCommandBuffer()
+            guard let commandBuffer = commandQueue.makeCommandBuffer() else {
+                fatalError("Can't render without a command buffer")
+            }
 
             rendererDelegateProxy.currentRenderingEye = eye
 
@@ -100,7 +106,7 @@ internal final class StereoRenderer {
             }
 
             let blitCommandEncoder = commandBuffer.makeBlitCommandEncoder()
-            blitCommandEncoder.copy(
+            blitCommandEncoder?.copy(
                 from: texture,
                 sourceSlice: 0,
                 sourceLevel: 0,
@@ -111,7 +117,7 @@ internal final class StereoRenderer {
                 destinationLevel: 0,
                 destinationOrigin: destinationOrigin
             )
-            blitCommandEncoder.endEncoding()
+            blitCommandEncoder?.endEncoding()
 
             commandBuffer.addCompletedHandler { _ in
                 semaphore.signal()
