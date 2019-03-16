@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1010"
-   version = "1.3">
+   version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BFB891771E2E013400FA9129"
-               BuildableName = "MetalScope.framework"
-               BlueprintName = "MetalScope"
-               ReferencedContainer = "container:MetalScope.xcodeproj">
+               BlueprintIdentifier = "BF9B15CA1E488AF3004CC8CE"
+               BuildableName = "StereoVideo.app"
+               BlueprintName = "StereoVideo"
+               ReferencedContainer = "container:StereoVideo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,6 +29,15 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "BF9B15CA1E488AF3004CC8CE"
+            BuildableName = "StereoVideo.app"
+            BlueprintName = "StereoVideo"
+            ReferencedContainer = "container:StereoVideo.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -41,14 +50,19 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES">
+      allowLocationSimulation = "YES"
+      launchAutomaticallySubstyle = "2">
+      <PathRunnable
+         runnableDebuggingMode = "0"
+         FilePath = "/&lt;placeholder&gt;">
+      </PathRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BFB891771E2E013400FA9129"
-            BuildableName = "MetalScope.framework"
-            BlueprintName = "MetalScope"
-            ReferencedContainer = "container:MetalScope.xcodeproj">
+            BlueprintIdentifier = "BF9B15CA1E488AF3004CC8CE"
+            BuildableName = "StereoVideo.app"
+            BlueprintName = "StereoVideo"
+            ReferencedContainer = "container:StereoVideo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -60,15 +74,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BFB891771E2E013400FA9129"
-            BuildableName = "MetalScope.framework"
-            BlueprintName = "MetalScope"
-            ReferencedContainer = "container:MetalScope.xcodeproj">
+            BlueprintIdentifier = "BF9B15CA1E488AF3004CC8CE"
+            BuildableName = "StereoVideo.app"
+            BlueprintName = "StereoVideo"
+            ReferencedContainer = "container:StereoVideo.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
